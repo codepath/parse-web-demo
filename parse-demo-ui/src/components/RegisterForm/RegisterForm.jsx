@@ -1,6 +1,7 @@
 import * as React from "react"
 import "./RegisterForm.css"
 import axios from "axios"
+import * as config from '../../config'
 
 export default function RegisterForm({ handleLogin }) {
     const username = React.createRef();
@@ -11,11 +12,10 @@ export default function RegisterForm({ handleLogin }) {
 
         const register = async () => {
             try {
-                const res = await axios.post("http://localhost:3001/register", {
+                const res = await axios.post(`${config.API_BASE_URL}/register`, {
                     "username" : username.current.value,
                     "password" : password.current.value
-                    }, 
-                    { withCredentials: true })
+                    })
                 handleLogin(res.data.user)    
             } catch (err) {
                 alert(err)

@@ -1,6 +1,7 @@
 import * as React from "react"
 import "./MessagesView.css"
 import axios from "axios"
+import * as config from '../../config'
 
 export default function MessagesView() {
     const [newMessage, setNewMessage] = React.useState("")
@@ -15,11 +16,9 @@ export default function MessagesView() {
         setNewMessage("")
 
         const post = (async () => {
-            const res = await axios.post("http://localhost:3001/messages", {
+            const res = await axios.post(`${config.API_BASE_URL}/messages`, {
                 "text" : newMessage,
-                }, 
-                { withCredentials: true }
-            )
+                })
             
             setMessages([res.data.message].concat(messages))
         })()
@@ -28,9 +27,7 @@ export default function MessagesView() {
     React.useEffect(() => {
         const fetchMessages = (async () => {
           try {
-            const res = await axios.get("http://localhost:3001/messages", 
-                { withCredentials: true }
-            )
+            const res = await axios.get(`${config.API_BASE_URL}/messages`)
             setMessages(res.data.messages)
           } catch (err) {
             console.log(err)

@@ -1,21 +1,17 @@
 const express = require('express')
-const cookieParser = require('cookie-parser')
 const morgan = require('morgan')
 const cors = require('cors')
 const Parse = require('parse/node')
+const {PARSE_APP_ID, PARSE_JAVASCRIPT_KEY} = require('./config')
 
 const app = express()
-const port = 3001
+const port = process.env.PORT || 3001
 
 app.use(express.json())
 app.use(morgan("tiny"))
-app.use(cors({
-  credentials: true,
-  origin: 'http://localhost:3000'
-}))
-app.use(cookieParser())
+app.use(cors())
 
-Parse.initialize("tTuMvRk2Lg9C9M73D22bQmdPHzaS3jDILHkuFREj", "ip8i2juqzXROxsZJXdCqW2KKNsFxcQHfvsvZCHDq")
+Parse.initialize(PARSE_APP_ID, PARSE_JAVASCRIPT_KEY)
 Parse.serverURL = "https://parseapi.back4app.com"
 
 app.post('/register', async (req, res) => {
@@ -23,7 +19,6 @@ app.post('/register', async (req, res) => {
 
   try {
       await user.signUp()
-      res.cookie("current_user_id", user.objectId, { maxAge: 315360000000 })
       res.send({"user" : user})
   } catch (error) {
       res.status(400)
@@ -35,7 +30,6 @@ app.post('/login', async (req, res) => {
   try {
     const user = await Parse.User.logIn(req.body.username, req.body.password)
     res.status(201)
-    res.cookie("current_user_id", user.id, { maxAge: 315360000000 })
     res.send({"user" : user})
   } catch (error) {
     res.status(400)
@@ -63,7 +57,7 @@ app.post('/messages', async (req, res) => {
   try {
     const message = new Parse.Object("Messages", req.body)
     
-    currentUserId = req.cookies["current_user_id"]
+    currentUserId = req.headers["current_user_id"]
     const user = new Parse.User()
     user.id = currentUserId
     
@@ -83,5 +77,5 @@ app.get('/', (req, res) => {
 })
 
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
+  console.log(`Parse Web Demo app listening on port ${port}`)
 })

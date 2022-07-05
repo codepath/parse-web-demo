@@ -1,6 +1,7 @@
 import * as React from "react"
 import "./LoginForm.css"
 import axios from "axios"
+import * as config from "../../config"
 
 export default function LoginForm({handleLogin}) {
     const username = React.createRef();
@@ -12,11 +13,10 @@ export default function LoginForm({handleLogin}) {
         const login = async () => {
             try {
                 console.log("Logging in")
-                const res = await axios.post("http://localhost:3001/login", {
+                const res = await axios.post(`${config.API_BASE_URL}/login`, {
                     "username" : username.current.value,
                     "password" : password.current.value
-                    }, 
-                    { withCredentials: true })                
+                    })                
                 handleLogin(res.data.user)    
             } catch (err) {
                 alert(err)
