@@ -1,0 +1,13 @@
+#NavBar {
+    background-color: #1ebf73;
+    padding: 10px;
+}
+
+#NavBar span {
+    font-weight: bold;
+}
+
+#NavBar a {
+    float: right;
+    color: black;
+}

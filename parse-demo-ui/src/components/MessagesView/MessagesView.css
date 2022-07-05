@@ -1,0 +1,21 @@
+.MessagesView {
+    margin-top: 10px;
+}
+
+.MessagesView form input {
+    width: 75%;
+    padding: 5px;
+    margin-right: 10px;
+}
+
+.MessagesView form button {
+    padding: 5px;
+}
+
+.MessagesList {
+    margin-top: 20px;
+}
+
+.MessageItem {
+    margin-bottom: 20px;
+}
