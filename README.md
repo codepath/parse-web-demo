@@ -53,7 +53,7 @@ For example, in the /register route, note that the new user is created like this
 
 ### Creating Objects
 
-Data in Parse is a Parse Object. In the Parse documentation, you can create a subclass of Parse Object for your model objects, but its not required. You can also create a generic Parse Object, and specify the table in the instantiation. For example,
+Data in Parse is a Parse Object. In the Parse documentation, you can create a subclass of Parse Object for your model objects, but it's not required. You can also create a generic Parse Object, and specify the table in the instantiation. For example,
 
 `const message = new Parse.Object("Messages", req.body)`
 
@@ -71,7 +71,7 @@ message.set("user", user)
 
 ### Querying Objects
 
-One of Parse's best features is its powerful query syntax (powered by Mongodb under the hood). The code snippet below illustrates how to create a query of the Messages table.
+One of Parse's best features is its powerful query syntax (powered by MongoDB under the hood). The code snippet below illustrates how to create a query of the Messages table.
 
 The `include` feature below is important if your data contains references to objects in other tables. If you don't use `include`, the query will return an array of messages, where each message contains the id of the user, but not the full user object.
 
