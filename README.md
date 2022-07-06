@@ -85,3 +85,11 @@ messages = await query.find()
 ```
 
 See the full set of query options in the [Parse Query documentation](https://docs.parseplatform.org/js/guide/#basic-queries).
+
+### Persisting logged in user
+
+Once the user logs in, the React app saves the current_user_id to localStorage (a built-in browser feature). It updates a isLoggedIn React state to change the UI depending on whether the user is logged in or logged out.
+
+On startup, the React app loads current_user_id from localStorage. Also, it configures axios to add the current_user_id to each request header, so that the backend api understands which user is logged in.
+
+The user persistence logic is in [components/App/App.jsx](https://github.com/codepath/parse-web-demo/blob/main/parse-demo-ui/src/components/App/App.jsx).
