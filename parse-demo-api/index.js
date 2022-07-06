@@ -19,6 +19,7 @@ app.post('/register', async (req, res) => {
 
   try {
       await user.signUp()
+      res.status(201)    
       res.send({"user" : user})
   } catch (error) {
       res.status(400)
@@ -29,7 +30,6 @@ app.post('/register', async (req, res) => {
 app.post('/login', async (req, res) => {
   try {
     const user = await Parse.User.logIn(req.body.username, req.body.password)
-    res.status(201)
     res.send({"user" : user})
   } catch (error) {
     res.status(400)
